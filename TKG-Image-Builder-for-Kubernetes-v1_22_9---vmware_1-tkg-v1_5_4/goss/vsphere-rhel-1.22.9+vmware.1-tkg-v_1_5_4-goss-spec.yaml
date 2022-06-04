@@ -1,49 +1,37 @@
 package:
-  apparmor:
+  audit:
     installed: true
-  apparmor-utils:
-    installed: true
-  apt-transport-https:
-    installed: true
-  auditd:
+  ca-certificates:
     installed: true
   chrony:
     installed: true
   cloud-init:
     installed: true
-  conntrack:
+  cloud-utils-growpart:
+    installed: true
+  conntrack-tools:
     installed: true
   curl:
     installed: true
   ebtables:
     installed: true
-  gnupg:
-    installed: true
   jq:
     installed: true
-  libnetfilter-acct1:
-    installed: true
-  libnetfilter-cttimeout1:
-    installed: true
-  libnetfilter-log1:
-    installed: true
-  libseccomp2:
-    installed: true
-  linux-cloud-tools-virtual:
-    installed: true
-  linux-tools-virtual:
+  libseccomp:
     installed: true
   ntp:
     installed: false
   open-vm-tools:
     installed: true
-  python3-distutils:
+  python-netifaces:
     installed: true
-  python3-netifaces:
+  python-requests:
     installed: true
-  python3-pip:
+  python2-pip:
     installed: true
   socat:
+    installed: true
+  yum-utils:
     installed: true
 service:
   auditd:
@@ -64,14 +52,11 @@ service:
   kubelet:
     enabled: true
     running: false
-  snap.amazon-ssm-agent.amazon-ssm-agent.service:
-    enabled: true
-    running: true
 command:
   /opt/cni/bin/host-device 2>&1 | awk -F' ' '{print substr($4,2); }':
     exit-status: 0
     stdout:
-    - 1.1.0+vmware.1
+    - 1.1.1+vmware.2
     stderr: []
     timeout: 0
   containerd --version | awk -F' ' '{print substr($3,2); }':
@@ -121,13 +106,21 @@ kernel-param:
     value: "1"
   net.bridge.bridge-nf-call-iptables:
     value: "1"
-  net.ipv4.conf.all.rp_filter:
-    value: "1"
   net.ipv4.ip_forward:
     value: "1"
-  net.ipv4.tcp_congestion_control:
-    value: bbr
+  net.ipv4.neigh.default.gc_thresh1:
+    value: "4096"
+  net.ipv4.neigh.default.gc_thresh2:
+    value: "8192"
+  net.ipv4.neigh.default.gc_thresh3:
+    value: "16384"
   net.ipv6.conf.all.disable_ipv6:
     value: "0"
   net.ipv6.conf.all.forwarding:
     value: "1"
+  net.ipv6.neigh.default.gc_thresh1:
+    value: "4096"
+  net.ipv6.neigh.default.gc_thresh2:
+    value: "8192"
+  net.ipv6.neigh.default.gc_thresh3:
+    value: "16384"

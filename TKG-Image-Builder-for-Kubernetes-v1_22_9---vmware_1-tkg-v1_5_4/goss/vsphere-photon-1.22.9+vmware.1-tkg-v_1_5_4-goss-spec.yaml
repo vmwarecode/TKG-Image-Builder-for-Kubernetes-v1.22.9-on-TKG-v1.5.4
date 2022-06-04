@@ -1,57 +1,56 @@
 package:
-  apparmor:
+  apparmor-parser:
     installed: true
-  apparmor-utils:
-    installed: true
-  apt-transport-https:
-    installed: true
-  auditd:
+  audit:
     installed: true
   chrony:
     installed: true
-  cloud-guest-utils:
-    installed: true
   cloud-init:
     installed: true
-  cloud-initramfs-copymods:
+  cloud-utils:
     installed: true
-  cloud-initramfs-dyn-netconf:
+  conntrack-tools:
     installed: true
-  conntrack:
-    installed: true
-  curl:
+  distrib-compat:
     installed: true
   ebtables:
     installed: true
-  gnupg:
+  ethtool:
     installed: true
   jq:
     installed: true
-  libnetfilter-acct1:
+  libseccomp:
     installed: true
-  libnetfilter-cttimeout1:
+  net-tools:
     installed: true
-  libnetfilter-log1:
-    installed: true
-  libseccomp2:
-    installed: true
-  linux-cloud-tools-virtual:
-    installed: true
-  linux-tools-virtual:
+  nfs-utils:
     installed: true
   ntp:
     installed: false
   open-vm-tools:
     installed: true
-  python3-distutils:
+  openssl-c_rehash:
+    installed: true
+  python-netifaces:
+    installed: true
+  python-requests:
     installed: true
   python3-netifaces:
     installed: true
   python3-pip:
     installed: true
+  rng-tools:
+    installed: true
   socat:
     installed: true
+  tar:
+    installed: true
+  unzip:
+    installed: true
 service:
+  apparmor:
+    enabled: false
+    running: false
   auditd:
     enabled: true
     running: true
@@ -74,7 +73,7 @@ command:
   /opt/cni/bin/host-device 2>&1 | awk -F' ' '{print substr($4,2); }':
     exit-status: 0
     stdout:
-    - 1.1.0+vmware.1
+    - 1.1.1+vmware.2
     stderr: []
     timeout: 0
   containerd --version | awk -F' ' '{print substr($3,2); }':
@@ -124,8 +123,6 @@ kernel-param:
     value: "1"
   net.bridge.bridge-nf-call-iptables:
     value: "1"
-  net.ipv4.conf.all.rp_filter:
-    value: "1"
   net.ipv4.ip_forward:
     value: "1"
   net.ipv4.neigh.default.gc_thresh1:
@@ -136,6 +133,8 @@ kernel-param:
     value: "16384"
   net.ipv4.tcp_congestion_control:
     value: bbr
+  net.ipv4.tcp_limit_output_bytes:
+    value: "524288"
   net.ipv6.conf.all.disable_ipv6:
     value: "0"
   net.ipv6.conf.all.forwarding:

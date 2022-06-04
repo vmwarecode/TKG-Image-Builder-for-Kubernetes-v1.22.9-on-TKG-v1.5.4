@@ -1,42 +1,51 @@
 package:
-  amazon-ssm-agent:
+  apparmor:
     installed: true
-  audit:
+  apparmor-utils:
     installed: true
-  awscli:
+  apt-transport-https:
     installed: true
-  ca-certificates:
+  auditd:
     installed: true
   chrony:
     installed: true
   cloud-init:
     installed: true
-  conntrack-tools:
+  conntrack:
     installed: true
   curl:
     installed: true
   ebtables:
     installed: true
+  gnupg:
+    installed: true
   jq:
+    installed: true
+  libnetfilter-acct1:
+    installed: true
+  libnetfilter-cttimeout1:
+    installed: true
+  libnetfilter-log1:
+    installed: true
+  libseccomp2:
+    installed: true
+  linux-cloud-tools-virtual:
+    installed: true
+  linux-tools-virtual:
     installed: true
   ntp:
     installed: false
   open-vm-tools:
     installed: true
-  postfix:
-    installed: false
-  python-netifaces:
+  python3-distutils:
     installed: true
-  python-requests:
+  python3-netifaces:
+    installed: true
+  python3-pip:
     installed: true
   socat:
     installed: true
-  yum-utils:
-    installed: true
 service:
-  amazon-ssm-agent:
-    enabled: true
-    running: true
   auditd:
     enabled: true
     running: true
@@ -55,14 +64,14 @@ service:
   kubelet:
     enabled: true
     running: false
-  sysstat:
+  snap.amazon-ssm-agent.amazon-ssm-agent.service:
     enabled: true
     running: true
 command:
   /opt/cni/bin/host-device 2>&1 | awk -F' ' '{print substr($4,2); }':
     exit-status: 0
     stdout:
-    - 1.1.0+vmware.1
+    - 1.1.1+vmware.2
     stderr: []
     timeout: 0
   containerd --version | awk -F' ' '{print substr($3,2); }':
@@ -111,6 +120,8 @@ kernel-param:
   net.bridge.bridge-nf-call-ip6tables:
     value: "1"
   net.bridge.bridge-nf-call-iptables:
+    value: "1"
+  net.ipv4.conf.all.rp_filter:
     value: "1"
   net.ipv4.ip_forward:
     value: "1"
