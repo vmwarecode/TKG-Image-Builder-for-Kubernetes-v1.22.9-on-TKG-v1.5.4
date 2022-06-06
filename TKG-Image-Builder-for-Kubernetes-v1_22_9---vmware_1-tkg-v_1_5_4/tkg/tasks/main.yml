@@ -1,20 +1,4 @@
 ---
-- name: Create /tkg-tmp space
-  mount:
-    path: /tkg-tmp
-    src: "tmpfs"
-    fstype: tmpfs
-    state: mounted
-    fstab: /tmp/tmp.fstab
-
-- name: Download goss binary
-  get_url:
-    url: "https://github.com/aelsabbahy/goss/releases/download/v0.3.16/goss-linux-amd64"
-    dest: /tkg-tmp/goss-linux-amd64
-    mode: 0755
-  retries: 5
-  delay: 3
-
 - import_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
 
